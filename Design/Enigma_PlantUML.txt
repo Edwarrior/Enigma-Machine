@@ -3,41 +3,27 @@ Rotor "3" *-- "1" EnigmaMachine
 Reflector "1" *-- "1" EnigmaMachine
 PlugBoard "1" *-- "1" EnigmaMachine
 
-Abstract EnigmaMachineComponent
-EnigmaMachineComponent : char SwapCharacter(char)
+Interface EnigmaMachineComponent
+EnigmaMachineComponent : +char SwapCharacter(char)
 
 EnigmaMachineComponent <|-- Rotor
 EnigmaMachineComponent <|-- Reflector
 EnigmaMachineComponent <|-- PlugBoard
 
-Enum RotorFixedProperties
-RotorFixedProperties : char* name
-RotorFixedProperties : char* characterOrder
-RotorFixedProperties : list<int32> rotationNotchPositions
-
-Enum ReflectorFixedProperties
-ReflectorFixedProperties : char* name
-ReflectorFixedProperties : char* characterOrder
-
-Class ComponentDefaults
-ComponentDefaults : +Const RotorFixedProperties ROTOR_I_PROPERTIES
-ComponentDefaults : +Const RotorFixedProperties ROTOR_II_PROPERTIES
-ComponentDefaults : +Const RotorFixedProperties ROTOR_III_PROPERTIES
-ComponentDefaults : +Const RotorFixedProperties ROTOR_IV_PROPERTIES
-ComponentDefaults : +Const RotorFixedProperties ROTOR_V_PROPERTIES
-ComponentDefaults : +Const RotorFixedProperties ROTOR_VI_PROPERTIES
-ComponentDefaults : +Const RotorFixedProperties ROTOR_VII_PROPERTIES
-ComponentDefaults : +Const RotorFixedProperties ROTOR_VIII_PROPERTIES
-ComponentDefaults : +Const ReflectorFixedProperties REFLECTOR???
-
-Rotor : -RotorFixedProperties rotorFixedProperties
-Rotor : -int32 DialPosition
-Rotor : -int32 WiringPosition
+Rotor : -char order[26]
+Rotor : -list<int32> rotationNotchPositions
+Rotor : -int32 ringSetting
+Rotor : -int32 position
+Rotor : -bool beforeReflector
+Rotor : +void SetBeforeReflector(bool)
 Rotor : +char SwapCharacter(char)
+Rotor : +bool RotateNeighbour()
+Rotor : -void Rotate()
 
-Reflector : -ReflectorFixedProperties reflectorFixedProperties
+Reflector : -char pairs [13][2]
 Reflector : +char SwapCharacter(char)
 
+PlugBoard : -list<char[]> pairs[2]
 PlugBoard : +char SwapCharacter(char)
 
 @enduml

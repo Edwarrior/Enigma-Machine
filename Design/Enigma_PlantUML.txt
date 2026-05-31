@@ -1,29 +1,28 @@
 @startuml
-Rotor "3" *-- "1" EnigmaMachine
-Reflector "1" *-- "1" EnigmaMachine
-PlugBoard "1" *-- "1" EnigmaMachine
+Rotor "3" *-- EnigmaMachine
+Reflector "1" *-- EnigmaMachine
+PlugBoard "1" *-- EnigmaMachine
 
-Interface EnigmaMachineComponent
-EnigmaMachineComponent : +char SwapCharacter(char)
+Abstract EnigmaMachineComponent
+EnigmaMachineComponent : -char letterOrder[26]
+EnigmaMachineComponent : +char SwapCharacter(char in)
 
 EnigmaMachineComponent <|-- Rotor
 EnigmaMachineComponent <|-- Reflector
 EnigmaMachineComponent <|-- PlugBoard
 
-Rotor : -char order[26]
-Rotor : -list<int32> rotationNotchPositions
-Rotor : -int32 ringSetting
-Rotor : -int32 position
+Rotor : -list<int32_t> rotationNotchPositions
+Rotor : -int32_t ringSetting
+Rotor : -int32_t position
 Rotor : -bool beforeReflector
-Rotor : +void SetBeforeReflector(bool)
-Rotor : +char SwapCharacter(char)
-Rotor : +bool RotateNeighbour()
+Rotor : -bool rotateNeighbour
+Rotor : +void SetBeforeReflector(bool beforeReflector)
+Rotor : +char SwapCharacter(char in)
+Rotor : +bool GetRotateNeighbour()
 Rotor : -void Rotate()
 
-Reflector : -char pairs [13][2]
-Reflector : +char SwapCharacter(char)
+Reflector : +char SwapCharacter(char in)
 
-PlugBoard : -list<char[]> pairs[2]
-PlugBoard : +char SwapCharacter(char)
+PlugBoard : +char SwapCharacter(char in)
 
 @enduml
